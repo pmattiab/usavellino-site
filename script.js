@@ -10,41 +10,41 @@ const rosaAvellino = {
         { nome: "Enrici", status: "over" },
         { nome: "Fontanarosa", status: "under" },
         { nome: "Sala", status: "over" },
-        { nome: "Cancellotti", status: "over" },
-        { nome: "Manzi", status: "over" },
-        { nome: "Cagnano", status: "over" },
-        { nome: "Todisco", status: "over" },
-        { nome: "Cancellieri", status: "over" },
-        { nome: "Marchisano", status: "under" }
+        { nome: "Cancellotti", status: "over" }
     ],
     centrocampisti: [
         { nome: "Palmiero", status: "over" },
         { nome: "Palumbo", status: "over" },
         { nome: "Besaggio", status: "over" },
-        { nome: "Sounas", status: "over" },
-        { nome: "Toscano", status: "over" },
-        { nome: "De Cristofaro", status: "over" },
-        { nome: "Mutanda", status: "under" },
-        { nome: "Maisto", status: "under" }
+        { nome: "Sounas", status: "over" }
     ],
     attaccanti: [
         { nome: "Russo", status: "bandiera" },
-        { nome: "Insigne", status: "over" },
         { nome: "Biasci", status: "over" },
-        { nome: "Spadoni", status: "under" },
-        { nome: "Pandolfi", status: "over" },
-        { nome: "Patierno", status: "over" },
         { nome: "Favilli", status: "over" },
+        { nome: "Spadoni", status: "under" }
+
+    ],
+    inUscita: [
+        { nome: "Manzi", status: "over" },
+        { nome: "Cagnano", status: "over" },
+        { nome: "Todisco", status: "over" },
+        { nome: "Cancellieri", status: "over" },
+        { nome: "Marchisano", status: "under" },
+        { nome: "Toscano", status: "over" },
+        { nome: "De Cristofaro", status: "over" },
+        { nome: "Mutanda", status: "under" },
+        { nome: "Maisto", status: "under" },
         { nome: "D'Ausilio", status: "over" },
         { nome: "Tribuzzi", status: "over" },
-        { nome: "Panico", status: "over" }
+        { nome: "Panico", status: "over" },
+        { nome: "Insigne", status: "over" },
+        { nome: "Patierno", status: "over" },
+        { nome: "Pandolfi", status: "over" }
     ],
-    fuoriLista: [], 
-    inScadenza: [
-        // { nome: "Marson", status: "over", infortunato: true },
-    ],
+    fuoriLista: [],
     inPrestito: [
-        // { nome: "Daffara", status: "under" },
+        // { nome: "Marson", status: "over", infortunato: true },
     ]
 };
 
@@ -100,7 +100,7 @@ document.addEventListener("DOMContentLoaded", () => {
     creaListaGiocatori("difensori", "DIFENSORI", "", rosaAvellino.difensori);
     creaListaGiocatori("centrocampisti", "CENTROCAMPISTI", "", rosaAvellino.centrocampisti);
     creaListaGiocatori("attaccanti", "ATTACCANTI", "", rosaAvellino.attaccanti);
+    creaListaGiocatori("in-uscita", "IN USCITA", "red", rosaAvellino.inUscita);
     creaListaGiocatori("fuori-lista", "FUORI LISTA", "red", rosaAvellino.fuoriLista);
-    creaListaGiocatori("in-scadenza", "IN SCADENZA", "blu", rosaAvellino.inScadenza);
     creaListaGiocatori("in-prestito", "IN PRESTITO", "blu", rosaAvellino.inPrestito);
 });
