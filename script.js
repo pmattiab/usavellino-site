@@ -35,16 +35,17 @@ const rosaAvellino = {
         { nome: "De Cristofaro", status: "over" },
         { nome: "Mutanda", status: "under" },
         { nome: "Maisto", status: "under" },
-        { nome: "D'Ausilio", status: "over" },
         { nome: "Tribuzzi", status: "over" },
         { nome: "Panico", status: "over" },
         { nome: "Insigne", status: "over" },
         { nome: "Patierno", status: "over" },
         { nome: "Pandolfi", status: "over" }
     ],
-    fuoriLista: [],
+    fuoriLista: [
+
+    ],
     inPrestito: [
-        // { nome: "Marson", status: "over", infortunato: true },
+        { nome: "D'Ausilio", status: "over" }
     ]
 };
 
