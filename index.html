@@ -71,7 +71,7 @@
 <body class="bg-gray-900 font-poppins py-8 text-white min-h-screen">
 
     <main>
-        <div class="max-w-[350px] mx-auto px-4">
+        <div class="max-w-[420px] mx-auto px-4">
 
             <div class="mb-6 text-center">
                 <h5 class="font-bold text-xl m-0 flex items-center justify-center">
@@ -80,12 +80,32 @@
                 </h5>
             </div>
 
+            <!-- Box Contatori a 4 colonne -->
+            <div class="mb-5 flex justify-around bg-gray-800 p-3 rounded-lg border border-gray-700 text-sm shadow-md">
+                <div class="text-center px-1">
+                    <span class="block text-gray-400 text-[10px] sm:text-xs uppercase tracking-wider">Over</span>
+                    <span id="count-over" class="font-bold text-lg text-[#2952b3]">0</span>
+                </div>
+                <div class="text-center px-1">
+                    <span class="block text-gray-400 text-[10px] sm:text-xs uppercase tracking-wider">Under</span>
+                    <span id="count-under" class="font-bold text-lg text-[#297314]">0</span>
+                </div>
+                <div class="text-center px-1">
+                    <span class="block text-gray-400 text-[10px] sm:text-xs uppercase tracking-wider">Bandiera</span>
+                    <span id="count-bandiera" class="font-bold text-lg text-yellow-500">0</span>
+                </div>
+                <div class="text-center px-1">
+                    <span class="block text-gray-400 text-[10px] sm:text-xs uppercase tracking-wider">In Prestito</span>
+                    <span id="count-prestito" class="font-bold text-lg text-orange-500">0</span>
+                </div>
+            </div>
+
             <div class="space-y-6">
                 <ul class="list-group" id="portieri"></ul>
                 <ul class="list-group" id="difensori"></ul>
                 <ul class="list-group" id="centrocampisti"></ul>
                 <ul class="list-group" id="attaccanti"></ul>
-                <ul class="list-group" id="in-prestito"></ul>
+                <ul class="list-group" id="in-prestito-list"></ul>
                 <ul class="list-group" id="in-uscita"></ul>
                 <ul class="list-group" id="fuori-lista"></ul>
             </div>
@@ -94,45 +114,41 @@
     </main>
 
     <script>
-
         const rosaAvellino = {
             portieri: [
-                { nome: "Iannarilli", status: "over" },
-                { nome: "Martinelli", status: "under" },
-                { nome: "Sassi", status: "under" }
+                { nome: "Iannarilli", status: "over", numero: 1, contratto: "proprietà", scadenza: 2028 },
+                { nome: "Martinelli", status: "under", numero: "", contratto: "prestito", scadenza: 2027 },
+                { nome: "Sassi", status: "under", numero: "", contratto: "proprietà", scadenza: 2027 }
             ],
             difensori: [
-                { nome: "Simic", status: "over" },
-                { nome: "Izzo", status: "over" },
-                { nome: "Enrici", status: "over" },
-                { nome: "Fontanarosa", status: "under" },
-                { nome: "Sala", status: "over" },
-                { nome: "Moruzzi", status: "under" },
-                { nome: "Cancellotti", status: "over" }
+                { nome: "Simic", status: "over", numero: 44, contratto: "proprietà", scadenza: 2027 },
+                { nome: "Izzo", status: "over", numero: 4, contratto: "proprietà", scadenza: 2028 },
+                { nome: "Enrici", status: "over", numero: 56, contratto: "proprietà", scadenza: 2029 },
+                { nome: "Fontanarosa", status: "under", numero: 63, contratto: "proprietà", scadenza: 2028 },
+                { nome: "Sala", status: "over", numero: 3, contratto: "proprietà", scadenza: 2025 },
+                { nome: "Moruzzi", status: "under", numero: "", contratto: "prestito", scadenza: 2027 },
+                { nome: "Cancellotti", status: "over", numero: 29, contratto: "proprietà", scadenza: 2027 }
             ],
             centrocampisti: [
-                { nome: "Palmiero", status: "over" },
-                { nome: "Palumbo", status: "over" },
-                { nome: "Besaggio", status: "over" },
-                { nome: "Sounas", status: "over" },
-                { nome: "Faticanti", status: "under" },
-                { nome: "Di Maggio", status: "under" }
+                { nome: "Palmiero", status: "over", numero: 6, contratto: "proprietà", scadenza: 2028 },
+                { nome: "Palumbo", status: "over", numero: 20, contratto: "proprietà", scadenza: 2028 },
+                { nome: "Besaggio", status: "over", numero: 39, contratto: "proprietà", scadenza: 2028 },
+                { nome: "Sounas", status: "over", numero: 24, contratto: "proprietà", scadenza: 2028 },
+                { nome: "Faticanti", status: "under", numero: "", contratto: "prestito", scadenza: 2027 },
+                { nome: "Di Maggio", status: "under", numero: "", contratto: "proprietà", scadenza: 2030 }
             ],
             attaccanti: [
-                { nome: "Russo", status: "bandiera" },
-                { nome: "Biasci", status: "over" },
-                { nome: "Favilli", status: "over" },
-                { nome: "Spadoni", status: "under" }
-
+                { nome: "Russo", status: "bandiera", numero: 10, contratto: "proprietà", scadenza: 2030 },
+                { nome: "Biasci", status: "over", numero: 14, contratto: "proprietà", scadenza: 2027 },
+                { nome: "Favilli", status: "over", numero: 99, contratto: "proprietà", scadenza: 2027 },
+                { nome: "Spadoni", status: "under", numero: "", contratto: "proprietà", scadenza: 2028 }
             ],
             inUscita: [
                 { nome: "Manzi", status: "over" },
                 { nome: "Cagnano", status: "over" },
                 { nome: "Todisco", status: "over" },
                 { nome: "Cancellieri", status: "over" },
-                { nome: "Marchisano", status: "under" },
                 { nome: "Toscano", status: "over" },
-                { nome: "De Cristofaro", status: "over" },
                 { nome: "Mutanda", status: "under" },
                 { nome: "Maisto", status: "under" },
                 { nome: "Tribuzzi", status: "over" },
@@ -145,65 +161,112 @@
 
             ],
             inPrestito: [
+                { nome: "Marchisano", status: "under" },
+                { nome: "De Cristofaro", status: "over" },
                 { nome: "D'Ausilio", status: "over" }
             ]
         };
 
-        /**
-         * Funzione per generare una singola lista nel DOM
-         * @param {string} containerId - L'ID del tag <ul> in HTML
-         * @param {string} titolo - Il testo da mostrare nel titolo (es. "PORTIERI")
-         * @param {string} titleClass - Classe aggiuntiva per il colore del titolo (vuoto, "blu", o "red")
-         * @param {Array} arrayGiocatori - L'array di oggetti contenente i giocatori
-         */
         function creaListaGiocatori(containerId, titolo, titleClass, arrayGiocatori) {
             const container = document.getElementById(containerId);
-            
-            // Se la lista giocatori è vuota e non è fuori lista, possiamo anche evitare di disegnarla, 
-            // ma in questo caso disegniamo comunque l'intestazione
             if (!container) return;
-
-            // Svuotiamo il contenitore per sicurezza (evita duplicati)
             container.innerHTML = '';
 
-            // 1. Creiamo l'elemento (<li>) del titolo
             const liTitolo = document.createElement("li");
             liTitolo.className = `list-group-item list-title ${titleClass}`;
             liTitolo.textContent = titolo;
             container.appendChild(liTitolo);
 
-            // 2. Cicliamo l'array dei giocatori per creare le singole righe
             arrayGiocatori.forEach(giocatore => {
                 const liGiocatore = document.createElement("li");
                 liGiocatore.className = "list-group-item";
 
-                // Creiamo lo span con nome e status (over/under/bandiera)
+                // --- CONTENITORE SINISTRO: Numero, Nome e Status ---
+                const divLeft = document.createElement("div");
+                divLeft.className = "flex items-center gap-3";
+
+                // MODIFICA QUI: Controlliamo se 'numero' esiste nell'oggetto (anche se è "")
+                if (giocatore.numero !== undefined) {
+                    const spanNumero = document.createElement("span");
+                    spanNumero.className = "bg-gray-700 text-white font-bold w-6 h-6 flex items-center justify-center rounded-full shrink-0 text-[11px]";
+                    spanNumero.textContent = giocatore.numero;
+                    divLeft.appendChild(spanNumero);
+                }
+
                 const spanNome = document.createElement("span");
                 spanNome.className = giocatore.status;
                 spanNome.textContent = giocatore.nome;
-                liGiocatore.appendChild(spanNome);
+                divLeft.appendChild(spanNome);
 
-                // Se il giocatore è infortunato, aggiungiamo il badge
                 if (giocatore.infortunato) {
                     const spanInfortunato = document.createElement("span");
                     spanInfortunato.className = "inf"; 
-                    liGiocatore.appendChild(spanInfortunato);
+                    divLeft.appendChild(spanInfortunato);
                 }
 
-                // Inseriamo il giocatore nella lista (<ul>)
+                liGiocatore.appendChild(divLeft);
+
+                // --- CONTENITORE DESTRO: Dettagli Contratto ---
+                const divRight = document.createElement("div");
+                divRight.className = "flex items-center space-x-3 text-[11px] text-gray-400";
+
+                if (giocatore.contratto || giocatore.scadenza) {
+                    const spanContratto = document.createElement("span");
+                    
+                    const tipoContratto = giocatore.contratto === 'prestito' ? 'Prestito' : 'Proprietà';
+                    const scadenza = giocatore.scadenza ? giocatore.scadenza : '';
+                    
+                    if (giocatore.contratto === 'prestito') {
+                        spanContratto.className = "text-orange-500/90";
+                    }
+                    
+                    spanContratto.textContent = `${tipoContratto} ${scadenza}`.trim();
+                    divRight.appendChild(spanContratto);
+                }
+
+                liGiocatore.appendChild(divRight);
                 container.appendChild(liGiocatore);
             });
         }
 
-        // Inizializzazione: appena la pagina si carica, disegniamo tutte le liste
+        function aggiornaContatori() {
+            let countOver = 0;
+            let countUnder = 0;
+            let countBandiera = 0;
+            let countPrestito = 0;
+
+            const repartiAttivi = [
+                rosaAvellino.portieri, 
+                rosaAvellino.difensori, 
+                rosaAvellino.centrocampisti, 
+                rosaAvellino.attaccanti
+            ];
+
+            repartiAttivi.forEach(reparto => {
+                reparto.forEach(giocatore => {
+                    if (giocatore.status === 'over') countOver++;
+                    if (giocatore.status === 'under') countUnder++;
+                    if (giocatore.status === 'bandiera') countBandiera++;
+                    if (giocatore.contratto === 'prestito') countPrestito++;
+                });
+            });
+
+            document.getElementById('count-over').textContent = countOver;
+            document.getElementById('count-under').textContent = countUnder;
+            document.getElementById('count-bandiera').textContent = countBandiera;
+            document.getElementById('count-prestito').textContent = countPrestito;
+        }
+
         document.addEventListener("DOMContentLoaded", () => {
             creaListaGiocatori("portieri", "PORTIERI", "", rosaAvellino.portieri);
             creaListaGiocatori("difensori", "DIFENSORI", "", rosaAvellino.difensori);
             creaListaGiocatori("centrocampisti", "CENTROCAMPISTI", "", rosaAvellino.centrocampisti);
             creaListaGiocatori("attaccanti", "ATTACCANTI", "", rosaAvellino.attaccanti);
+            creaListaGiocatori("in-prestito-list", "CEDUTI IN PRESTITO", "blu", rosaAvellino.inPrestito);
             creaListaGiocatori("in-uscita", "IN USCITA", "red", rosaAvellino.inUscita);
             creaListaGiocatori("fuori-lista", "FUORI LISTA", "red", rosaAvellino.fuoriLista);
-            creaListaGiocatori("in-prestito", "CEDUTI IN PRESTITO", "blu", rosaAvellino.inPrestito);
+
+            aggiornaContatori();
         });
 
     </script>
