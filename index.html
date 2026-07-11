@@ -101,10 +101,20 @@
             </div>
 
             <div class="space-y-6">
+                <!-- ROSA ATTIVA -->
                 <ul class="list-group" id="portieri"></ul>
                 <ul class="list-group" id="difensori"></ul>
                 <ul class="list-group" id="centrocampisti"></ul>
                 <ul class="list-group" id="attaccanti"></ul>
+
+                <!-- DIVISORE VISIVO -->
+                <div class="relative flex py-2 items-center">
+                    <div class="flex-grow border-t border-gray-700"></div>
+                    <span class="flex-shrink-0 mx-4 text-gray-400 text-[11px] uppercase tracking-wider font-semibold">Mercato / Esuberi</span>
+                    <div class="flex-grow border-t border-gray-700"></div>
+                </div>
+
+                <!-- LISTE MERCATO -->
                 <ul class="list-group" id="in-prestito-list"></ul>
                 <ul class="list-group" id="in-uscita"></ul>
                 <ul class="list-group" id="fuori-lista"></ul>
@@ -185,7 +195,6 @@
                 const divLeft = document.createElement("div");
                 divLeft.className = "flex items-center gap-3";
 
-                // MODIFICA QUI: Controlliamo se 'numero' esiste nell'oggetto (anche se è "")
                 if (giocatore.numero !== undefined) {
                     const spanNumero = document.createElement("span");
                     spanNumero.className = "bg-gray-700 text-white font-bold w-6 h-6 flex items-center justify-center rounded-full shrink-0 text-[11px]";
