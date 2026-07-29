@@ -137,7 +137,7 @@
                 { nome: "Fontanarosa", status: "under", numero: 63, contratto: "proprietà", scadenza: 2028 },
                 { nome: "Sala", status: "over", numero: 3, contratto: "proprietà", scadenza: 2025 },
                 { nome: "Moruzzi", status: "under", numero: "", contratto: "prestito", scadenza: 2027 },
-                { nome: "Cancellotti", status: "over", numero: 29, contratto: "proprietà", scadenza: 2027 }
+                { nome: "Cancellotti", status: "over", numero: 29, contratto: "proprietà", scadenza: 2028 }
             ],
             centrocampisti: [
                 { nome: "Palmiero", status: "over", numero: 6, contratto: "proprietà", scadenza: 2028 },
@@ -145,18 +145,19 @@
                 { nome: "Besaggio", status: "over", numero: 39, contratto: "proprietà", scadenza: 2028 },
                 { nome: "Sounas", status: "over", numero: 24, contratto: "proprietà", scadenza: 2028 },
                 { nome: "Faticanti", status: "under", numero: "", contratto: "prestito", scadenza: 2027 },
-                { nome: "Di Maggio", status: "under", numero: "", contratto: "proprietà", scadenza: 2030 }
+                { nome: "Di Maggio", status: "under", numero: "", contratto: "proprietà", scadenza: 2030 },
+                { nome: "Della Rocca", status: "under", numero: "", contratto: "proprietà", scadenza: 2029 }
             ],
             attaccanti: [
                 { nome: "Russo", status: "bandiera", numero: 10, contratto: "proprietà", scadenza: 2030 },
                 { nome: "Biasci", status: "over", numero: 14, contratto: "proprietà", scadenza: 2027 },
                 { nome: "Favilli", status: "over", numero: 99, contratto: "proprietà", scadenza: 2027 },
                 { nome: "Fila", status: "over", numero: "", contratto: "prestito", scadenza: 2027 },
-                { nome: "Spadoni", status: "under", numero: "", contratto: "proprietà", scadenza: 2028 }
+                { nome: "Spadoni", status: "under", numero: "", contratto: "proprietà", scadenza: 2028 },
+                { nome: "Scotti", status: "under", numero: "", contratto: "proprietà", scadenza: 2029 }
             ],
             inUscita: [
                 { nome: "Manzi", status: "over" },
-                { nome: "Cagnano", status: "over" },
                 { nome: "Todisco", status: "over" },
                 { nome: "Cancellieri", status: "over" },
                 { nome: "Toscano", status: "over" },
@@ -274,7 +275,12 @@
             creaListaGiocatori("attaccanti", "ATTACCANTI", "", rosaAvellino.attaccanti);
             creaListaGiocatori("in-prestito-list", "CEDUTI IN PRESTITO", "blu", rosaAvellino.inPrestito);
             creaListaGiocatori("in-uscita", "IN USCITA", "red", rosaAvellino.inUscita);
-            creaListaGiocatori("fuori-lista", "FUORI LISTA", "red", rosaAvellino.fuoriLista);
+            if (rosaAvellino.fuoriLista.length > 0) {
+                creaListaGiocatori("fuori-lista", "FUORI LISTA", "red", rosaAvellino.fuoriLista);
+            }
+            else {
+                document.getElementById("fuori-lista").style.display = "none";
+            }
 
             aggiornaContatori();
         });
