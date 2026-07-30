@@ -144,6 +144,7 @@
                 { nome: "Palumbo", status: "over", numero: 20, contratto: "proprietà", scadenza: 2028 },
                 { nome: "Besaggio", status: "over", numero: 39, contratto: "proprietà", scadenza: 2028 },
                 { nome: "Sounas", status: "over", numero: 24, contratto: "proprietà", scadenza: 2028 },
+                { nome: "Maisto", status: "under", numero: "", contratto: "proprietà", scadenza: 2027 },
                 { nome: "Faticanti", status: "under", numero: "", contratto: "prestito", scadenza: 2027 },
                 { nome: "Di Maggio", status: "under", numero: "", contratto: "proprietà", scadenza: 2030 },
                 { nome: "Della Rocca", status: "under", numero: "", contratto: "proprietà", scadenza: 2029 }
@@ -159,11 +160,9 @@
             ],
             inUscita: [
                 { nome: "Manzi", status: "over" },
-                { nome: "Todisco", status: "over" },
                 { nome: "Cancellieri", status: "over" },
                 { nome: "Toscano", status: "over" },
                 { nome: "Mutanda", status: "under" },
-                { nome: "Maisto", status: "under" },
                 { nome: "Tribuzzi", status: "over" },
                 { nome: "Panico", status: "over" },
                 { nome: "Insigne", status: "over" },
@@ -173,9 +172,9 @@
 
             ],
             inPrestito: [
-                { nome: "Marchisano", status: "under" },
-                { nome: "De Cristofaro", status: "over" },
-                { nome: "D'Ausilio", status: "over" }
+                { nome: "Marchisano", status: "under", destinazione: "Giugliano" },
+                { nome: "De Cristofaro", status: "over", destinazione: "Latina" },
+                { nome: "D'Ausilio", status: "over", destinazione: "Iraklis Salonicco" }
             ]
         };
 
@@ -197,7 +196,8 @@
                 const divLeft = document.createElement("div");
                 divLeft.className = "flex items-center gap-3";
 
-                if (giocatore.numero !== undefined) {
+                // Fix: Ora il pallino appare solo se il numero esiste ed è diverso da stringa vuota
+                if (giocatore.numero) { 
                     const spanNumero = document.createElement("span");
                     spanNumero.className = "bg-gray-700 text-white font-bold w-6 h-6 flex items-center justify-center rounded-full shrink-0 text-[11px]";
                     spanNumero.textContent = giocatore.numero;
@@ -217,11 +217,20 @@
 
                 liGiocatore.appendChild(divLeft);
 
-                // --- CONTENITORE DESTRO: Dettagli Contratto ---
+                // --- CONTENITORE DESTRO: Dettagli Contratto o Destinazione Prestito ---
                 const divRight = document.createElement("div");
                 divRight.className = "flex items-center space-x-3 text-[11px] text-gray-400";
 
-                if (giocatore.contratto || giocatore.scadenza) {
+                // SE il giocatore è stato ceduto in prestito (ha una destinazione)
+                if (giocatore.destinazione) {
+                    const spanDestinazione = document.createElement("span");
+                    spanDestinazione.className = "flex items-center gap-1.5 text-gray-300 font-medium";
+                    // Usiamo FontAwesome per la freccia
+                    spanDestinazione.innerHTML = `<i class="fa-solid fa-arrow-right text-gray-500"></i> ${giocatore.destinazione}`;
+                    divRight.appendChild(spanDestinazione);
+                } 
+                // ALTRIMENTI mostra i classici dettagli del contratto
+                else if (giocatore.contratto || giocatore.scadenza) {
                     const spanContratto = document.createElement("span");
                     
                     const tipoContratto = giocatore.contratto === 'prestito' ? 'Prestito' : 'Proprietà';
