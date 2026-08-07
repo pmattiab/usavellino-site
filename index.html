@@ -154,19 +154,16 @@
                 { nome: "Pandolfi", status: "over", numero: 8, contratto: "proprietà", scadenza: 2029 },
                 { nome: "Fila", status: "over", numero: "", contratto: "prestito", scadenza: 2027 },            ],
             inUscita: [
-                { nome: "Vignoli", status: "under" },    
-                { nome: "Manzi", status: "over" },
-                { nome: "Cancellieri", status: "over" },
-                { nome: "Toscano", status: "over" },
-                { nome: "Mutanda", status: "under" },
-                { nome: "Della Rocca", status: "under" },
-                { nome: "Spadoni", status: "under" },
-                { nome: "Insigne", status: "over" },
-                { nome: "Patierno", status: "over" }
+                { nome: "Vignoli", status: "under", destinazione: "" },
+                { nome: "Manzi", status: "over", destinazione: "Scafatese / Pescara / Monopoli" },
+                { nome: "Toscano", status: "over", destinazione: "Scafatese" },
+                { nome: "Mutanda", status: "under", destinazione: "Paganese" },
+                { nome: "Della Rocca", status: "under", destinazione: "" },
+                { nome: "Spadoni", status: "under", destinazione: "" },
+                { nome: "Insigne", status: "over", destinazione: "Spezia" },
+                { nome: "Patierno", status: "over", destinazione: "" }
             ],
-            fuoriLista: [
-
-            ],
+            fuoriLista: [],
             inPrestito: [
                 { nome: "Marchisano", status: "under", destinazione: "Giugliano" },
                 { nome: "De Cristofaro", status: "over", destinazione: "Latina" },
@@ -176,7 +173,7 @@
             ]
         };
 
-        function creaListaGiocatori(containerId, titolo, titleClass, arrayGiocatori) {
+        function creaListaGiocatori(containerId, titolo, titleClass, arrayGiocatori, mostraNumero = true) {
             const container = document.getElementById(containerId);
             if (!container) return;
             container.innerHTML = '';
@@ -194,10 +191,15 @@
                 const divLeft = document.createElement("div");
                 divLeft.className = "flex items-center gap-3";
 
-                const spanNumero = document.createElement("span");
-                spanNumero.className = "bg-gray-700 text-white font-bold w-6 h-6 flex items-center justify-center rounded-full shrink-0 text-[11px]";
-                if (giocatore.numero) { spanNumero.textContent = giocatore.numero; }
-                divLeft.appendChild(spanNumero);
+                // Mostra il cerchietto del numero solo se è richiesto
+                if (mostraNumero) {
+                    const spanNumero = document.createElement("span");
+                    spanNumero.className = "bg-gray-700 text-white font-bold w-6 h-6 flex items-center justify-center rounded-full shrink-0 text-[11px]";
+                    if (giocatore.numero) { 
+                        spanNumero.textContent = giocatore.numero; 
+                    }
+                    divLeft.appendChild(spanNumero);
+                }
 
                 const spanNome = document.createElement("span");
                 spanNome.className = giocatore.status;
@@ -212,15 +214,14 @@
 
                 liGiocatore.appendChild(divLeft);
 
-                // --- CONTENITORE DESTRO: Dettagli Contratto o Destinazione Prestito ---
+                // --- CONTENITORE DESTRO: Dettagli Contratto o Destinazione ---
                 const divRight = document.createElement("div");
                 divRight.className = "flex items-center space-x-3 text-[11px] text-gray-400";
 
-                // SE il giocatore è stato ceduto in prestito (ha una destinazione)
+                // Mostra la destinazione sia per i ceduti in prestito che per gli in uscita (se presente)
                 if (giocatore.destinazione) {
                     const spanDestinazione = document.createElement("span");
                     spanDestinazione.className = "flex items-center gap-1.5 text-gray-300 font-medium";
-                    // Usiamo FontAwesome per la freccia
                     spanDestinazione.innerHTML = `<i class="fa-solid fa-arrow-right text-gray-500"></i> ${giocatore.destinazione}`;
                     divRight.appendChild(spanDestinazione);
                 } 
@@ -273,16 +274,19 @@
         }
 
         document.addEventListener("DOMContentLoaded", () => {
+            // Rosa attiva (mostra il numero di maglia)
             creaListaGiocatori("portieri", "PORTIERI", "", rosaAvellino.portieri);
             creaListaGiocatori("difensori", "DIFENSORI", "", rosaAvellino.difensori);
             creaListaGiocatori("centrocampisti", "CENTROCAMPISTI", "", rosaAvellino.centrocampisti);
             creaListaGiocatori("attaccanti", "ATTACCANTI", "", rosaAvellino.attaccanti);
-            creaListaGiocatori("in-prestito-list", "CEDUTI IN PRESTITO", "blu", rosaAvellino.inPrestito);
-            creaListaGiocatori("in-uscita", "IN USCITA", "red", rosaAvellino.inUscita);
+
+            // Liste Mercato / Esuberi (NASCONDE il cerchietto del numero passando `false`)
+            creaListaGiocatori("in-prestito-list", "CEDUTI IN PRESTITO", "blu", rosaAvellino.inPrestito, false);
+            creaListaGiocatori("in-uscita", "IN USCITA", "red", rosaAvellino.inUscita, false);
+            
             if (rosaAvellino.fuoriLista.length > 0) {
-                creaListaGiocatori("fuori-lista", "FUORI LISTA", "red", rosaAvellino.fuoriLista);
-            }
-            else {
+                creaListaGiocatori("fuori-lista", "FUORI LISTA", "red", rosaAvellino.fuoriLista, false);
+            } else {
                 document.getElementById("fuori-lista").style.display = "none";
             }
 
