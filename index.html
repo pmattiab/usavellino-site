@@ -145,22 +145,22 @@
                 { nome: "Palumbo", status: "over", numero: 20, contratto: "proprietà", scadenza: 2028 },
                 { nome: "Besaggio", status: "over", numero: 39, contratto: "proprietà", scadenza: 2028 },
                 { nome: "Sounas", status: "over", numero: 24, contratto: "proprietà", scadenza: 2028 },
+                { nome: "Berenbruch", status: "under", numero: "", contratto: "prestito", scadenza: 2027 },
                 { nome: "Maisto", status: "under", numero: 28, contratto: "proprietà", scadenza: 2027 },
                 { nome: "Faticanti", status: "under", numero: 16, contratto: "prestito", scadenza: 2027 },
-                { nome: "Di Maggio", status: "under", numero: 8, contratto: "proprietà", scadenza: 2030 },            ],
+                { nome: "Di Maggio", status: "under", numero: 8, contratto: "proprietà", scadenza: 2030 },
+            ],
             attaccanti: [
+                { nome: "Della Rocca", status: "under", numero: "", contratto: "proprietà", scadenza: 2029 },
                 { nome: "Russo", status: "bandiera", numero: 10, contratto: "proprietà", scadenza: 2030 },
+                { nome: "Insigne", status: "over", numero: 94, contratto: "proprietà", scadenza: 2027 },
                 { nome: "Biasci", status: "over", numero: 14, contratto: "proprietà", scadenza: 2027 },
                 { nome: "Favilli", status: "over", numero: 99, contratto: "proprietà", scadenza: 2027 },
                 { nome: "Pandolfi", status: "over", numero: 7, contratto: "proprietà", scadenza: 2029 },
-                { nome: "Fila", status: "over", numero: 11, contratto: "prestito", scadenza: 2027 },            ],
-            inUscita: [
-                { nome: "Vignoli", status: "under", destinazione: "Folgore Caratese" },
-                { nome: "Mutanda", status: "under", destinazione: "Paganese" },
-                { nome: "Della Rocca", status: "under", destinazione: "Perugia / Lumezzane" },
-                { nome: "Insigne", status: "over", destinazione: "Spezia" },
-                { nome: "Patierno", status: "over", destinazione: "Casarano / Barletta / Reggina" }
+                { nome: "Fila", status: "over", numero: 11, contratto: "prestito", scadenza: 2027 },
+                { nome: "Patierno", status: "over", numero: 9, contratto: "proprietà", scadenza: 2028 },
             ],
+            inUscita: [],
             fuoriLista: [],
             inPrestito: [
                 { nome: "Marchisano", status: "under", destinazione: "Giugliano" },
@@ -281,7 +281,10 @@
 
             // Liste Mercato / Esuberi (NASCONDE il cerchietto del numero passando `false`)
             creaListaGiocatori("in-prestito-list", "CEDUTI IN PRESTITO", "blu", rosaAvellino.inPrestito, false);
-            creaListaGiocatori("in-uscita", "IN USCITA", "red", rosaAvellino.inUscita, false);
+
+            if (rosaAvellino.inUscita.length > 0) {
+                creaListaGiocatori("in-uscita", "IN USCITA", "red", rosaAvellino.inUscita, false);
+            }
             
             if (rosaAvellino.fuoriLista.length > 0) {
                 creaListaGiocatori("fuori-lista", "FUORI LISTA", "red", rosaAvellino.fuoriLista, false);
